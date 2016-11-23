@@ -8,7 +8,10 @@ services:
 branches:
   only:
     - master
-    - staging
+
+before_install:
+  - sudo apt-get install python-dev
+  - pip install docker-cloud
 
 script:
   - docker-compose build
@@ -17,7 +20,7 @@ after_success:
   - export APP=docker-dotnetcore-starter-kit
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=neocase/$APP
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - export TAG=latest
   - docker build -f Dockerfile -t $REPO:$TAG .
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker push $REPO
