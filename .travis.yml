@@ -1,0 +1,28 @@
+sudo: required
+
+language: csharp
+
+services:
+  - docker
+
+branches:
+  only:
+  - master
+  - staging
+
+script:
+  - docker-compose up
+
+  after_success:
+  - export APP=docker-dotnetcore-starter-kit
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=neocase/$APP
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$TAG .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker push $REPO
+  - docker-cloud stack create -f docker-cloud.yml $APP
+  - docker-cloud stack redeploy $APP
+
+  
+
