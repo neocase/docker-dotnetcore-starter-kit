@@ -23,7 +23,7 @@ after_success:
   - docker build -f Dockerfile -t $REPO .
   - docker tag $REPO:$COMMIT $REPO
   - docker push $REPO
-  - docker-cloud stack create -f docker-cloud.yml $APP
+  - docker-cloud stack create -f docker-cloud.yml -n $APP
   - docker-cloud stack redeploy $APP
 
   
