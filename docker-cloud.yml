@@ -1,4 +1,5 @@
 app:
+  nickname: dotnetcore demo app
   image: neocase/docker-dotnetcore-starter-kit:latest
   ports:
     - "5000:5000"
