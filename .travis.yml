@@ -20,9 +20,8 @@ after_success:
   - export APP=docker-dotnetcore-starter-kit
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=neocase/$APP
-  - export TAG=latest
-  - docker build -f Dockerfile -t $REPO:$TAG .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker build -f Dockerfile -t $REPO .
+  - docker tag $REPO:$COMMIT $REPO
   - docker push $REPO
   - docker-cloud stack create -f docker-cloud.yml $APP
   - docker-cloud stack redeploy $APP
