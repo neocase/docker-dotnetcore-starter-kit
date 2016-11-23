@@ -7,13 +7,13 @@ services:
 
 branches:
   only:
-  - master
-  - staging
+    - master
+    - staging
 
 script:
   - docker-compose up
 
-  after_success:
+after_success:
   - export APP=docker-dotnetcore-starter-kit
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=neocase/$APP
