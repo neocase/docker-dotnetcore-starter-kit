@@ -8,3 +8,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    networks:
+      - neo_dev
+    restart: always
+    pid: "host"
+
+networks:
+    neo_dev:
+      driver: bridge

@@ -1,4 +1,5 @@
 FROM microsoft/dotnet:latest
+MAINTAINER Samir Bouaked "sbouaked@neocasesoftware.com"
 COPY . /app
 WORKDIR /app
 
